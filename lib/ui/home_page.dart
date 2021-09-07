@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:boxiz_app/model/boxiz.dart';
 import 'package:boxiz_app/theme.dart';
+import 'package:boxiz_app/ui/detail_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -64,159 +65,170 @@ class HomePage extends StatelessWidget {
                   Boxiz _boxiz = boxizItems[index];
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: BoxizTheme.cardColor,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      height: 380,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 5,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(16),
-                                  topLeft: Radius.circular(16),
-                                ),
-                                color: Colors.blue,
-                                image: DecorationImage(
-                                  image: NetworkImage(_boxiz.img ?? ''),
-                                  fit: BoxFit.cover,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => DetailPage(boxiz: _boxiz,)));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: BoxizTheme.cardColor,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        height: 380,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(16),
+                                    topLeft: Radius.circular(16),
+                                  ),
+                                  color: Colors.blue,
+                                  image: DecorationImage(
+                                    image: NetworkImage(_boxiz.img ?? ''),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 4,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '${_boxiz.prize}',
-                                        style: TextStyle(
-                                          color: Colors.white.withOpacity(0.6),
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 4, vertical: 2),
-                                        decoration: BoxDecoration(
-                                            color:
-                                                Colors.white.withOpacity(0.4),
-                                            borderRadius:
-                                                BorderRadius.circular(4)),
-                                        child: Text(
-                                          '${_boxiz.type}',
+                            Expanded(
+                              flex: 4,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '${_boxiz.prize}',
                                           style: TextStyle(
-                                            color: Colors.white,
+                                            color:
+                                                Colors.white.withOpacity(0.6),
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 4, vertical: 2),
+                                          decoration: BoxDecoration(
+                                              color:
+                                                  Colors.white.withOpacity(0.4),
+                                              borderRadius:
+                                                  BorderRadius.circular(4)),
+                                          child: Text(
+                                            '${_boxiz.type}',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      _boxiz.title ?? 'Unknown',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      _boxiz.datetime ?? 'Unknown',
+                                      style: TextStyle(
+                                        color: Colors.white.withOpacity(0.5),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 16,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.emoji_events,
+                                          color: Colors.tealAccent,
+                                        ),
+                                        Text(
+                                          _boxiz.coin ?? 'Unknown',
+                                          style: TextStyle(
+                                            color: Colors.tealAccent,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text(
-                                    _boxiz.title ?? 'Unknown',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                                      ],
                                     ),
-                                  ),
-                                  Text(
-                                    _boxiz.datetime ?? 'Unknown',
-                                    style: TextStyle(
-                                      color: Colors.white.withOpacity(0.5),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                                    SizedBox(
+                                      height: 16,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 16,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.emoji_events,
-                                        color: Colors.tealAccent,
-                                      ),
-                                      Text(
-                                        _boxiz.coin ?? 'Unknown',
-                                        style: TextStyle(
-                                          color: Colors.tealAccent,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 16,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Row(
-                                        children: _boxiz.items
-                                                ?.map(
-                                                  (e) => Container(
-                                                    margin: EdgeInsets.only(
-                                                        right: 4),
-                                                    padding: EdgeInsets.all(4),
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: Colors.white),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4),
+                                    Row(
+                                      children: [
+                                        Row(
+                                          children: _boxiz.items
+                                                  ?.map(
+                                                    (e) => Container(
+                                                      margin: EdgeInsets.only(
+                                                          right: 4),
+                                                      padding:
+                                                          EdgeInsets.all(4),
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color:
+                                                                Colors.white),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(4),
+                                                      ),
+                                                      child: Text(
+                                                        '$e',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.orange),
+                                                      ),
                                                     ),
-                                                    child: Text(
-                                                      '$e',
-                                                      style: TextStyle(
-                                                          color: Colors.orange),
-                                                    ),
-                                                  ),
-                                                )
-                                                .toList() ??
-                                            [],
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        'Live in ',
-                                        style: TextStyle(
-                                          color: Colors.white.withOpacity(0.4),
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
+                                                  )
+                                                  .toList() ??
+                                              [],
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      Text(
-                                        '${_boxiz.liveIn?.inMinutes ?? 0}m ${_boxiz.liveIn?.inSeconds ?? 0}s',
-                                        style: TextStyle(
-                                          color: BoxizTheme.accentColor,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
+                                        Spacer(),
+                                        Text(
+                                          'Live in ',
+                                          style: TextStyle(
+                                            color:
+                                                Colors.white.withOpacity(0.4),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                ],
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          '${_boxiz.liveIn?.inMinutes ?? 0}m ${_boxiz.liveIn?.inSeconds ?? 0}s',
+                                          style: TextStyle(
+                                            color: BoxizTheme.accentColor,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   );
