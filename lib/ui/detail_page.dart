@@ -11,6 +11,13 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  List<BoxizSelect> _selectItem = [
+    BoxizSelect(isOpen: false),
+    BoxizSelect(isOpen: false),
+    BoxizSelect(isOpen: false),
+    BoxizSelect(isOpen: false),
+    BoxizSelect(isOpen: false),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +83,131 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ],
                 ),
-                Column(),
+                Column(
+                  children: [
+                    Text(
+                      '${widget.boxiz?.liveIn?.inHours ?? '0h'}h '
+                      '${widget.boxiz?.liveIn?.inMinutes ?? '0m'}m '
+                      '${widget.boxiz?.liveIn?.inSeconds ?? '0s'}s',
+                      style: TextStyle(
+                        color: BoxizTheme.accentColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 32,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                      'Start at ${widget.boxiz?.datetime}',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.7),
+                        fontSize: 12,
+                      ),
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 42,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _selectItem.length,
+                        itemBuilder: (context, index) {
+                          var item = _selectItem[index];
+                          if (item.isOpen) {
+                            return Container(
+                              decoration:
+                                  BoxDecoration(color: Colors.deepOrangeAccent),
+                              child: Center(
+                                child: Text(
+                                  item.number.toString(),
+                                ),
+                              ),
+                            );
+                          }
+                          return Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: BoxizTheme.backgroundColor,
+                                borderRadius: BorderRadius.circular(4),
+                                border:
+                                    Border.all(color: BoxizTheme.accentColor),
+                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              child: Center(
+                                child: Icon(
+                                  Icons.lock,
+                                  color: BoxizTheme.accentColor,
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
+                ),
+                Text(
+                  'Grid 1',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height: 16,
+                        width: 16,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                        ),
+                      ),
+                      Text(
+                        'TAKEN',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Container(
+                        height: 16,
+                        width: 16,
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(color: BoxizTheme.accentColor)),
+                      ),
+                      Text(
+                        'AVAILABLE',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Container(
+                        height: 16,
+                        width: 16,
+                        decoration: BoxDecoration(
+                          color: Colors.deepOrangeAccent,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                      Text(
+                        'SELECTED',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Expanded(
                   child: Placeholder(),
                 ),
@@ -101,7 +232,7 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           )

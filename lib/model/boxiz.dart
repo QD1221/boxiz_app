@@ -1,3 +1,11 @@
+class BoxizSelect{
+  int? number;
+  bool isOpen;
+
+  BoxizSelect({this.number, required this.isOpen});
+}
+
+
 class Boxiz {
   String? img;
   String? prize;
