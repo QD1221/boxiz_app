@@ -18,6 +18,15 @@ class _DetailPageState extends State<DetailPage> {
     BoxizSelect(isOpen: false),
     BoxizSelect(isOpen: false),
   ];
+
+  List<BoxizGrid> _boxizGridItems = List.generate(100, (index) {
+    return BoxizGrid(
+      (index + 1),
+      false,
+      isAvailable: index % 3 == 0 ? true : false,
+    );
+  });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +77,9 @@ class _DetailPageState extends State<DetailPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       color: Colors.white,
                       icon: Icon(Icons.arrow_back_ios),
                     ),
@@ -209,10 +220,64 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
                 Expanded(
-                  child: Placeholder(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GridView.count(
+                      padding: EdgeInsets.zero,
+                      crossAxisCount: 10,
+                      crossAxisSpacing: 6,
+                      mainAxisSpacing: 6,
+                      children: _boxizGridItems.map((e) {
+                        return GestureDetector(
+                          onTap: () {
+                            if (!e.isAvailable) {
+                              return;
+                            }
+                            if (e.isAvailable && (e.isSelect ?? true)) {
+                              setState(() {
+                                e.isSelect = false;
+                              });
+                              return;
+                            }
+
+                            setState(() {
+                              e.isSelect = true;
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: e.isSelect!
+                                  ? Colors.orange
+                                  : e.isAvailable
+                                      ? Colors.white.withOpacity(0.2)
+                                      : Colors.white.withOpacity(0.1),
+                              border: Border.all(
+                                  color: e.isSelect ?? false
+                                      ? Colors.orange
+                                      : e.isAvailable
+                                          ? BoxizTheme.accentColor
+                                          : Colors.transparent),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Center(
+                              child: e.isSelect!
+                                  ? Icon(Icons.check)
+                                  : Text(
+                                      e.isAvailable ? '${e.number}' : '',
+                                      style: TextStyle(
+                                        color: BoxizTheme.accentColor,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
                 ),
                 SizedBox(
-                  height: 32,
+                  height: 16,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

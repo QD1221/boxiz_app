@@ -1,10 +1,20 @@
-class BoxizSelect{
+class BoxizGrid {
+  bool isAvailable;
+  int? number;
+  bool? isSelect;
+
+  BoxizGrid(this.number, this.isSelect, {this.isAvailable = true});
+}
+
+class BoxizSelect {
   int? number;
   bool isOpen;
 
-  BoxizSelect({this.number, required this.isOpen});
+  BoxizSelect({
+    this.number,
+    required this.isOpen,
+  });
 }
-
 
 class Boxiz {
   String? img;
@@ -37,7 +47,8 @@ List<Boxiz> boxizItems = [
     prize: 'VIRTUAL PRIZE',
     type: 'NBA',
     items: ['05', '17', '35', '68', '92'],
-    img: 'https://cdn.pixabay.com/photo/2013/03/21/15/52/basketball-95607_960_720.jpg',
+    img:
+        'https://cdn.pixabay.com/photo/2013/03/21/15/52/basketball-95607_960_720.jpg',
   ),
   Boxiz(
     title: 'Bulls @ Lakers',
@@ -47,6 +58,7 @@ List<Boxiz> boxizItems = [
     prize: 'VIRTUAL PRIZE',
     type: 'NBA',
     items: ['05', '17', '35', '68', '92'],
-    img: 'https://cdn.pixabay.com/photo/2013/03/21/15/52/basketball-95607_960_720.jpg',
+    img:
+        'https://cdn.pixabay.com/photo/2013/03/21/15/52/basketball-95607_960_720.jpg',
   )
 ];
